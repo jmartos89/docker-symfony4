@@ -1,6 +1,6 @@
 FROM ubuntu:17.04
 
-MAINTAINER jmartos <jmartos89@gmail.com>
+MAINTAINER jmartos89 <jmartos89@gmail.com>
 
 RUN apt-get update && apt-get install -y \
     nginx

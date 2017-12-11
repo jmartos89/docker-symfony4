@@ -1,5 +1,7 @@
 FROM ubuntu:17.04
 
+MAINTAINER jmartos89 <jmartos89@gmail.com>
+
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y vim curl git unzip
 
