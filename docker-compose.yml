@@ -1,0 +1,36 @@
+version: '2'
+services:
+    db:
+        image: mysql
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        networks: [sf4]
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    php:
+        build:
+            context: php7-fpm
+        networks: [sf4]
+        ports:
+            - 9000:9000
+        volumes:
+            - ${SYMFONY_APP_PATH}:/home/apps/symfony
+            - ./logs/symfony:/home/apps/symfony/app/logs
+    nginx:
+        build: nginx
+        networks: [sf4]
+        ports:
+            - 80:80
+        volumes_from:
+            - php
+        links:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+
+networks:
+    sf4:
+        driver: bridge
